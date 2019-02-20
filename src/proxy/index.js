@@ -19,15 +19,13 @@ const PORT = 5000;
     }
   });
 
-  server.post('/conversations', async ({ headers }, res) => {
-    res.header('Access-Control-Allow-Origin', headers.origin);
+  server.post('/conversations', async ({ headers: { authorization, origin } }, res) => {
+    res.header('Access-Control-Allow-Origin', origin);
 
     const sreq = await fetch(
       'https://directline.botframework.com/v3/directline/conversations',
       {
-        headers: {
-          'Authorization': headers.authorization
-        },
+        headers: { authorization },
         method: 'POST'
       }
     );
