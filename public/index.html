@@ -47,7 +47,10 @@
 
         window.WebChat.renderWebChat({
           // directLine: window.WebChat.createDirectLine({ token }),
-          directLine: window.RequestReplyDirectLineJS.createDirectLine({ token }),
+          directLine: window.RequestReplyDirectLineJS.createDirectLine({
+            domain: 'http://localhost:5000/',
+            token
+          }),
           store
         }, document.getElementById('webchat'));
 

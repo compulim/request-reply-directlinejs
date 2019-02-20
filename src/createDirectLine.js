@@ -1,6 +1,6 @@
 import Observable from 'core-js/es7/observable';
 
-import fetch from './mockFetch';
+// import fetch from './mockFetch';
 
 class RequestReplyDirectLineJS {
   constructor({ domain = window.location.href, token }) {
@@ -47,9 +47,12 @@ class RequestReplyDirectLineJS {
 
       (async () => {
         const res = await fetch(
-          new URL(`/conversations/${ this.conversationId }/activity`, domain).toString(),
+          new URL(`/conversations/${ this.conversationId }/activities`, domain).toString(),
           {
             body: JSON.stringify(activity),
+            headers: {
+              'Authorization': `Bearer ${ token }`
+            },
             method: 'POST'
           }
         );
@@ -61,13 +64,19 @@ class RequestReplyDirectLineJS {
 
           subscriber.error(new Error(`Failed to post activity, server returned ${ res.status }`));
         } else {
-          const { activities } = await res.json();
+          const { activities, id = Math.random().toString(36).substr(2) } = await res.json();
 
           activities.forEach(activity => {
             activityObserver.next(activity);
           });
 
-          subscriber.next({ id: Math.random() });
+          // Mock an echo back so Web Chat think the outgoing activity is sent successfully
+          activityObserver.next({
+            ...activity,
+            id
+          });
+
+          subscriber.next({ id });
         }
       })().catch(err => console.error(err));
 
