@@ -1,0 +1,7 @@
+{
+  "cleanUrls": false,
+  "rewrites": [
+    { "source": "/", "destination": "/public/index.html" },
+    { "source": "/request-reply-directlinejs.js", "destination": "/dist/request-reply-directlinejs.js" }
+  ]
+}
