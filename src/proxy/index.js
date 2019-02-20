@@ -60,8 +60,6 @@ const PORT = 5000;
       return res.send(err);
     }
 
-    let cumulatedActivities = [];
-
     await sleep();
 
     const { activities, watermark } = await pollActivities({ authorization, conversationID }, watermarks[conversationID]);
