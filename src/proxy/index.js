@@ -62,20 +62,13 @@ const PORT = 5000;
 
     let cumulatedActivities = [];
 
-    for (;;) {
-      await sleep();
+    await sleep();
 
-      const { activities, watermark } = await pollActivities({ authorization, conversationID }, watermarks[conversationID]);
+    const { activities, watermark } = await pollActivities({ authorization, conversationID }, watermarks[conversationID]);
 
-      if (activities.length) {
-        cumulatedActivities = [...cumulatedActivities, ...activities];
-        watermarks[conversationID] = watermark;
-      } else {
-        break;
-      }
-    }
+    watermarks[conversationID] = watermark;
 
-    res.send({ activities: cumulatedActivities, id });
+    res.send({ activities, id });
   });
 
   server.listen(PORT, () => {
