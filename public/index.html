@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Web Chat: Full-featured bundle</title>
+    <title>Request-reply DirectLineJS demo</title>
     <!--
       For demonstration purposes, we are using the development branch of Web Chat at "/master/webchat.js".
       When you are using Web Chat for production, you should use the latest stable release at "/latest/webchat.js",
@@ -31,6 +31,8 @@
         const res = await fetch('https://webchat-mockbot.azurewebsites.net/directline/token', { method: 'POST' });
         const { token } = await res.json();
         const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+          // console.log(action);
+
           if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
             dispatch({
               type: 'WEB_CHAT/SEND_MESSAGE',
@@ -44,7 +46,8 @@
         });
 
         window.WebChat.renderWebChat({
-          directLine: window.WebChat.createDirectLine({ token }),
+          // directLine: window.WebChat.createDirectLine({ token }),
+          directLine: window.RequestReplyDirectLineJS.createDirectLine({ token }),
           store
         }, document.getElementById('webchat'));
 

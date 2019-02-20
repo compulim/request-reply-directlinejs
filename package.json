@@ -6,7 +6,7 @@
   "scripts": {
     "build:babel": "babel --out-dir lib --source-maps inline --verbose src",
     "build:webpack": "webpack-cli",
-    "start": "concurrently --names \"babel,web,webpack\" \"npm run build:babel -- --watch\" \"serve -p 5080\" \"npm run build:webpack -- --config webpack-watch.config.js --watch\"",
+    "start": "concurrently --names \"babel,web,webpack\" \"npm run build:babel -- --watch\" \"serve -c ./serve.json -p 5080 .\" \"npm run build:webpack -- --config webpack-watch.config.js --watch\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "William Wong <compulim@hotmail.com> (http://compulim.info/)",
@@ -18,11 +18,12 @@
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "concurrently": "^4.1.0",
-    "serve": "^10.1.2",
+    "serve": "^10.1.1",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "@babel/runtime": "^7.3.1"
+    "@babel/runtime": "^7.3.1",
+    "core-js": "^2.6.5"
   }
 }

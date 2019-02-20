@@ -1,3 +1,6 @@
-(async function () {
-  console.log('Hello, World!');
-})().catch(err => console.error(err));
+import createDirectLine from './createDirectLine';
+
+window.RequestReplyDirectLineJS = {
+  ...window.RequestReplyDirectLineJS,
+  createDirectLine
+};
