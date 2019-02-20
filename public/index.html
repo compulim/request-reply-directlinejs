@@ -45,10 +45,12 @@
           return next(action);
         });
 
+        const params = new URLSearchParams(location.search);
+
         window.WebChat.renderWebChat({
           // directLine: window.WebChat.createDirectLine({ token }),
           directLine: window.RequestReplyDirectLineJS.createDirectLine({
-            domain: 'http://localhost:5000/',
+            domain: params.get('domain') || 'http://localhost:5000/',
             token
           }),
           store
